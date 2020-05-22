@@ -12,6 +12,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_FILES["userImage"]["type"])){
 	$target_Algorithim = $_POST['Point_to_Point'];
 	$target_valueC = $_POST['ccons'];
 	$target_valueB = $_POST['bcons'];
+	if(!$target_valueC and !$target_valueB){$target_valueC=0;$target_valueB=0;}
 	if (in_array($file["type"],$fileTypes) && in_array($file_extension, $extensions)) {
 		if ($file["error"] > 0)
 		{

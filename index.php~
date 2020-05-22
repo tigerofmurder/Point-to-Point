@@ -13,6 +13,11 @@
             <select id="funtion" name="Point_to_Point">
                 <option value="exponential">Exponential Operator</option>
                 <option value="logarithm">Logarithm Operator</option>
+                <option value="thresholding">thresholding</option>
+                <option value="histogramEq">Histogram Equalization</option>
+                <option value="contrastSt">Contrast Stretching</option>
+                <option value="squared">Squared Operator</option>
+                <option value="raisePower">Raise of the Power</option>
             </select>
             </p>
             <p>Constante c:

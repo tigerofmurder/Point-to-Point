@@ -37,19 +37,23 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_FILES["userImage"]["type"])){
 		$msg = '***archivo invalido***';
 	}
 	echo ($uploaded ? $msg : '<span class="msg-error">'.$msg.'</span>');
-
-	$exe = "C:\\xampp\\htdocs\\proccess\\".$target_Algorithim.".py";
-	$dir_file = "C:\\xampp\\htdocs\\proccess\\" . $targetPath;
-
+	
+	if ($target_Algorithim=="thresholding"){
+		echo '<br><img src="uploads/histograma.png">';
+	}
+	else if ($target_Algorithim=="histogramEq"){
+		echo '<br><img src="uploads/histograma.png">';
+	}
+	
+	$exe = "/opt/lampp/htdocs/proccess/".$target_Algorithim.".py";
+	$dir_file = "/opt/lampp/htdocs/proccess/".$targetPath;
+	
 	echo '<br>',$exe, '<br>';
 	echo $dir_file, '<br>';
 	
-	$message = shell_exec("G:\\Anaconda\\python '$exe' '$dir_file'");
-		$message = shell_exec("G:\\Anaconda\\python  G:\\codigos\\exponential.py 'C:\\xampp\\htdocs\\proccess\\uploads\\Captura de pantalla (1).png' 20 1.005");
-	echo "<pre>$message</pre>";
+	$message = exec("/home/tigerofmurder/anaconda3/bin/python3.7 '$exe' '$dir_file' '$target_valueC' '$target_valueB' 2>&1");
 	print_r($message);
-
-	echo '<img src="'.$message.'">';
+	echo '<br><img src="'.$message.'">';
 }
 
 die();

@@ -18,10 +18,14 @@ def main(value_thr,value_default,img):
     cv2.imwrite(strr,img);
     return strr;
 
+def round_int(x):
+    if x == float("inf") or x == float("-inf"):
+        return float('nan')
+    return int(round(x))
 
 filename = sys.argv[1]
-c = float(sys.argv[2])
-d = float(sys.argv[3])
+c = round_int(float(sys.argv[2]))
+d = round_int(float(sys.argv[3]))
 
 imgen = cv2.imread(filename)
 img = cv2.cvtColor(imgen, cv2.COLOR_BGR2GRAY)
