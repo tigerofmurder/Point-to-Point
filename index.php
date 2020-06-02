@@ -1,13 +1,13 @@
 <html>
 <head>
 <title>Algortimos punto a punto</title>
-<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="style.css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="js/ajax-uploads.js"></script>
+<script src="js/ajax-upload.js"></script>
 </head>
 <body>
     <div class="img-upload">
-        <h1 style="text-align: center;">Algortimos punto a punto</h1>
+        <h1 style="text-align: center;">Algortimos</h1>
         <form class="frmUpload" action="" method="post">
             <p>Selecciona Algoritmo:
             <select id="Point_to_Point" name="Point_to_Point">
@@ -18,6 +18,8 @@
                 <option value="contrastSt">Contrast Stretching</option>
                 <option value="squared">Squared Operator</option>
                 <option value="raisePower">Raise of the Power</option>
+                <option value="add">add</option>
+                <option value="subtract">subtract</option>
             </select>
             </p>
             <p id="c_cons" name="c_cons">Constante c:
@@ -28,9 +30,10 @@
             </p>
             <label>Subir Imagen:</label>
             <input type="file" name="userImage" id="userImage" class="user-image" required />
-            <input type="submit" value="UPLOAD" class="btn-upload" />        
+            <input type="submit" value="UPLOAD" class="btn-upload" />
         </form>
         <div class="img-preview"></div>
+        <div class="img-preview1"></div>
         <div class="upload-msg"></div>
     </div>
 </body>

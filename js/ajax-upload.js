@@ -51,32 +51,32 @@ $('#Point_to_Point').change(function() {
     	$("#c_cons").html('Constante C : <input type="number" id="ccons" name="ccons" value=0.05 step=0.001>');
         $("#b_cons").html('Constante R : <input type="number" id="bcons" name="bcons" value=1.5 step=0.001>');
     }
-    else if(funtionID == "add" or functionID == "subtract"){
-    	$("#c_cons").html('<input type="file" name="userImage" id="userImage" class="user-image" required />');
+    else if(funtionID == "add" || functionID == "subtract"){
+    	$("#c_cons").html('Segunda imagen: <input type="file" name="userImage1" id="userImage1" class="user-image" required />');
+    	$("#userImage1").change(function() {
+		$(".upload-msg").empty(); 
+		var file = this.files[0];
+		var imagefile = file.type;
+		var imageTypes= ["image/jpeg","image/png","image/jpg"];
+		if(imageTypes.indexOf(imagefile) == -1)
+		{
+			$(".upload-msg").html("<span class='msg-error'>Please Select A valid Image File</span><br /><span>Only jpeg, jpg and png Images type allowed</span>");
+			return false;
+		}
+		else
+		{
+			var reader = new FileReader();
+			reader.onload = function(e){
+				$(".img-preview1").html('<img src="' + e.target.result + '" />');				
+			};
+			reader.readAsDataURL(this.files[0]);
+		}
+	});
         $("#b_cons").html('');
     }
 });
 
 $("#userImage").change(function() {
-	$(".upload-msg").empty(); 
-	var file = this.files[0];
-	var imagefile = file.type;
-	var imageTypes= ["image/jpeg","image/png","image/jpg"];
-	if(imageTypes.indexOf(imagefile) == -1)
-	{
-		$(".upload-msg").html("<span class='msg-error'>Please Select A valid Image File</span><br /><span>Only jpeg, jpg and png Images type allowed</span>");
-		return false;
-	}
-	else
-	{
-		var reader = new FileReader();
-		reader.onload = function(e){
-			$(".img-preview1").html('<img src="' + e.target.result + '" />');				
-		};
-		reader.readAsDataURL(this.files[0]);
-	}
-});
-$("#userImage1").change(function() {
 	$(".upload-msg").empty(); 
 	var file = this.files[0];
 	var imagefile = file.type;
