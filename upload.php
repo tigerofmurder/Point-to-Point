@@ -12,7 +12,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_FILES["userImage"]["type"])){
 	$target_Algorithim = $_POST['Point_to_Point'];
 	$target_valueC = $_POST['ccons'];
 	$target_valueB = $_POST['bcons'];
-	if ($target_Algorithim=='add' or $target_Algorithim=="subtract"){
+	if ($target_Algorithim=='add' or $target_Algorithim=="subtract" or $target_Algorithim=="blending" or $target_Algorithim=="divide" or $target_Algorithim=="Oand" or $target_Algorithim=="Oor" or $target_Algorithim=="Oxor"){
 		$file1 = $_FILES["userImage1"];
 		$sourcePath1 = $file1['tmp_name'];
 		$targetPath1 = 'uploads/'.$file1['name'];
@@ -61,9 +61,17 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_FILES["userImage"]["type"])){
 	#echo '<br>',$exe, '<br>';
 	#echo $dir_file, '<br>';
 	
-	if ($target_Algorithim=="add" or $target_Algorithim=="subtract"){
+	if ($target_Algorithim=='add' or $target_Algorithim=="subtract" or $target_Algorithim=="Oand" or $target_Algorithim=="Oor" or $target_Algorithim=="Oxor" or $target_Algorithim=="blending" or $target_Algorithim=="divide"){
 		$dir_file1 = "/opt/lampp/htdocs/proccess/".$targetPath1;
-		$message = exec("/home/tigerofmurder/anaconda3/bin/python3.7 '$exe' '$dir_file' '$dir_file1' 2>&1");
+		if($target_Algorithim=="blending"){
+			$message = exec("/home/tigerofmurder/anaconda3/bin/python3.7 '$exe' '$dir_file' '$dir_file1' '$target_valueB' 2>&1");
+		}
+		else{
+			$message = exec("/home/tigerofmurder/anaconda3/bin/python3.7 '$exe' '$dir_file' '$dir_file1' 2>&1");
+			print_r($message);
+			echo "<br>DIRECCION<br>/home/tigerofmurder/anaconda3/bin/python3.7 $exe $dir_file $dir_file1 2>&1";
+		}
+
 		
 	}
 	else{

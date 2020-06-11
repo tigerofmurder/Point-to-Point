@@ -7,7 +7,6 @@ import sys
 import random
 
 def subtract(img, img1):
-    strimg= img
     img = cv2.imread(img)
     nimg1 = cv2.imread(img1)
     height, width, depth = img.shape
@@ -26,6 +25,7 @@ def subtract(img, img1):
     	    img[x,y,2] = c3
     
     strr = "uploads/solution_"+str(random.random())+".jpg"
+    #img = cv2.subtract(img,img1)
     cv2.imwrite(strr,img)
     return strr
     

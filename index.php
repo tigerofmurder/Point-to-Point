@@ -18,8 +18,14 @@
                 <option value="contrastSt">Contrast Stretching</option>
                 <option value="squared">Squared Operator</option>
                 <option value="raisePower">Raise of the Power</option>
-                <option value="add">add</option>
-                <option value="subtract">subtract</option>
+                <option value="multiplication">Mulplication</option>
+                <option value="blending">Blending</option>
+                <option value="add">Add</option>
+                <option value="subtract">Subtraction</option>
+                <option value="divide">Divide</option>
+                <option value="Oand">Operator AND</option>
+                <option value="Oor">Operator OR</option>
+                <option value="Oxor">Operator XOR</option>
             </select>
             </p>
             <p id="c_cons" name="c_cons">Constante c:
