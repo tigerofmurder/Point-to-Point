@@ -2,13 +2,50 @@
 
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
-if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_FILES["userImage"]["type"])){
-	$msg = '';
-	$uploaded = FALSE;
-	$extensions = array("jpeg", "jpg", "png");
-	$fileTypes = array("image/png","image/jpg","image/jpeg");
-	$file = $_FILES["userImage"];
-	$file_extension = strtolower(end(explode(".", $file["name"])));
+if($_SERVER['REQUEST_METHOD'] == "POST"){
+	$cascade_value = $_POST['cascade'];
+	$cont = $_POST['fcont'];
+	if (!$_POST['fcont']){
+		$cont = 0;
+	}
+
+    if($cascade_value == "True" and $cont>0){
+		$targetPath = $_POST['fname'];
+		//echo $targetPath;
+	}
+	else{
+	    $msg = '';
+	    $uploaded = FALSE;
+	    $extensions = array("jpeg", "jpg", "png");
+	    $fileTypes = array("image/png","image/jpg","image/jpeg");
+	    $file = $_FILES["userImage"];
+	    $file_extension = strtolower(end(explode(".", $file["name"])));
+	    if (in_array($file["type"],$fileTypes) && in_array($file_extension, $extensions)) {
+			if ($file["error"] > 0)
+			{
+				$msg = 'Error Code: ' . $file["error"];
+			}
+			else
+			{
+				if (file_exists("upload/" . $file["name"])) {
+					$msg = $file["name"].' ya existe.';				
+				}
+				else
+				{
+					$sourcePath = $file['tmp_name'];
+					$targetPath = 'uploads/'.$file['name'];
+					move_uploaded_file($sourcePath,$targetPath);
+					$msg = 'Image Subida .....!!';
+					$uploaded = TRUE;
+				}
+			}
+		}
+		else
+		{
+			$msg = '***archivo invalido***';
+		}
+	}
+	
 	$target_Algorithim = $_POST['Point_to_Point'];
 	$target_valueC = $_POST['ccons'];
 	$target_valueB = $_POST['bcons'];
@@ -19,40 +56,20 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_FILES["userImage"]["type"])){
 		move_uploaded_file($sourcePath1,$targetPath1);
 	}
 	
+	
+	
+	$histogram = "false";
+	
 	if(!$target_valueC and !$target_valueB){$target_valueC=0;$target_valueB=0;}
 	
-	if (in_array($file["type"],$fileTypes) && in_array($file_extension, $extensions)) {
-		if ($file["error"] > 0)
-		{
-			$msg = 'Error Code: ' . $file["error"];
-		}
-		else
-		{
-			if (file_exists("upload/" . $file["name"])) {
-				$msg = $file["name"].' ya existe.';				
-			}
-			else
-			{
-				$sourcePath = $file['tmp_name'];
-				$targetPath = 'uploads/'.$file['name'];
-				move_uploaded_file($sourcePath,$targetPath);
-				$msg = 'Image Subida .....!!';
-				$uploaded = TRUE;
-			}
-		}
-	}
-	else
-	{
-		$msg = '***archivo invalido***';
-	}
+	
 	#echo ($uploaded ? $msg : '<span class="msg-error">'.$msg.'</span><br>');
 	
-	if ($target_Algorithim=="thresholding"){
-		echo '<br><img src="uploads/histograma.png">';
+	if ($target_Algorithim=="thresholding" or $target_Algorithim=="histogramEq"){
+		//echo '<br><img src="uploads/histograma.png">';
+		$histogram = 'uploads/histograma.png';
 	}
-	else if ($target_Algorithim=="histogramEq"){
-		echo '<br><img src="uploads/histograma.png">';
-	}
+	
 	
 	
 	$exe = "/opt/lampp/htdocs/proccess/".$target_Algorithim.".py";
@@ -68,8 +85,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_FILES["userImage"]["type"])){
 		}
 		else{
 			$message = exec("/home/tigerofmurder/anaconda3/bin/python3.7 '$exe' '$dir_file' '$dir_file1' 2>&1");
-			print_r($message);
-			echo "<br>DIRECCION<br>/home/tigerofmurder/anaconda3/bin/python3.7 $exe $dir_file $dir_file1 2>&1";
 		}
 
 		
@@ -79,7 +94,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_FILES["userImage"]["type"])){
 	}
 	
 	#print_r($message);
-	echo '<img src="'.$message.'">';
+	//echo '<img src="'.$message.'">';
+	//$array['success'] = $message;
+	echo json_encode(array('success' => $message, 'histogram' => $histogram,"cont"=>$cont+1));
+	//echo json_encode($array)
 }
 
 die();

@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>Algortimos punto a punto</title>
-<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="styles.css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="js/ajax-upload.js"></script>
 </head>
@@ -9,6 +9,8 @@
     <div class="img-upload">
         <h1 style="text-align: center;">Algortimos</h1>
         <form class="frmUpload" action="" method="post">
+            <input type="checkbox" id="cascade" name="cascade" value="True">
+            <label for="vehicle1"> EJECUTAR EN CASCADA </label><br>
             <p>Selecciona Algoritmo:
             <select id="Point_to_Point" name="Point_to_Point">
                 <option value="exponential">Exponential Operator</option>
@@ -35,7 +37,9 @@
                 <input type="number" id="bcons" name="bcons" value=20 step=0.001>
             </p>
             <label>Subir Imagen:</label>
-            <input type="file" name="userImage" id="userImage" class="user-image" required />
+            <p id="image_change" name="image_change">
+            <input type="file" name="userImage" id="userImage" class="user-image" required" />
+            </p>
             <input type="submit" value="UPLOAD" class="btn-upload" />
         </form>
         <div class="img-preview"></div>

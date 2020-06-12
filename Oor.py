@@ -25,6 +25,8 @@ def main(img, img1):
 	img = cv2.imread(img)
 	img2 = cv2.imread(img1)
 
+	row, cols ,channels = img.shape
+	img2 = cv2.resize(img2,(int(cols),int(row)))
 	img = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 	img2 = cv2.cvtColor(img2,cv2.COLOR_BGR2GRAY)
 

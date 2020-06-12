@@ -1,5 +1,5 @@
 $(document).ready(function (e) {
-	
+var img_salide = "";
 $(".frmUpload").on('submit',(function(e) {
 	e.preventDefault();
 	$(".upload-msg").text('Loading...');	
@@ -13,6 +13,34 @@ $(".frmUpload").on('submit',(function(e) {
 		success: function(data)
 		{
 			$(".upload-msg").html(data);
+			console.log(data);
+			var values = $.parseJSON(data)
+			console.log(values.success);
+			console.log(values.cont);
+			img_salide = values.success;
+			if (values.histogram == "false"){
+                $(".upload-msg").html('<img src="' + values.success + '" />');
+            }
+            else{
+                $(".upload-msg").html('<img src="' + values.histogram + '" /><br><img src="' + values.success + '" />');
+            }
+            
+            var value_cas = $('#cascade :checked').val();
+			console.log(value_cas);
+			if (value_cas == "True"){
+				console.log("True cascade");
+				//console.log(document.getElementById("userImage").value);
+				//document.getElementById("userImage").value = values.success;
+				//$("#userImage").attr("value",values.success);
+				$("#image_change").html('<input type="text" id="fname" name="fname" value="' + img_salide + '" /><input type="number" id="fcont" name="fcont" value="' + values.cont + '" />');
+				//console.log(document.getElementById("userImage").value);
+				$(".img-preview").html('<img src="' + img_salide + '" />');
+				
+			}
+			else{
+			    ("#image_change").html('<input type="file" name="userImage" id="userImage" class="user-image" required" />');
+				console.log("False cascade");
+			}
 		}
 	});
 }
@@ -20,7 +48,6 @@ $(".frmUpload").on('submit',(function(e) {
 
 $('#Point_to_Point').change(function() {
     var funtionID = $('#Point_to_Point').val();
-    console.log(10);
     console.log(funtionID);
     
     if(funtionID == "exponential"){
@@ -102,5 +129,6 @@ $("#userImage").change(function() {
 		};
 		reader.readAsDataURL(this.files[0]);
 	}
-});	
+});
+
 });
