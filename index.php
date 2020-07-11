@@ -1,11 +1,14 @@
 <html>
 <head>
 <title>Algortimos punto a punto</title>
-<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="style.css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="js/ajax-upload.js"></script>
+
+
 </head>
 <body>
+    
     <div class="img-upload">
         <h1 style="text-align: center;">Algortimos</h1>
         <form class="frmUpload" action="" method="post">
@@ -28,6 +31,7 @@
                 <option value="Oand">Operator AND</option>
                 <option value="Oor">Operator OR</option>
                 <option value="Oxor">Operator XOR</option>
+                <option value="CamScan">Cam Scanner</option>
             </select>
             </p>
             <p id="c_cons" name="c_cons">Constante c:
@@ -43,8 +47,10 @@
             <input type="submit" value="UPLOAD" class="btn-upload" />
         </form>
         <div class="img-preview"></div>
+        <canvas width="600" height="800" id="my_canvas"></canvas>
         <div class="img-preview1"></div>
         <div class="upload-msg"></div>
     </div>
+    
 </body>
 </html>

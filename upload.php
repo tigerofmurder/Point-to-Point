@@ -2,6 +2,7 @@
 
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
+
 if($_SERVER['REQUEST_METHOD'] == "POST"){
 	$cascade_value = $_POST['cascade'];
 	$cont = $_POST['fcont'];
@@ -19,6 +20,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 	    $extensions = array("jpeg", "jpg", "png");
 	    $fileTypes = array("image/png","image/jpg","image/jpeg");
 	    $file = $_FILES["userImage"];
+	    
 	    $file_extension = strtolower(end(explode(".", $file["name"])));
 	    if (in_array($file["type"],$fileTypes) && in_array($file_extension, $extensions)) {
 			if ($file["error"] > 0)
@@ -55,6 +57,16 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 		$targetPath1 = 'uploads/'.$file1['name'];
 		move_uploaded_file($sourcePath1,$targetPath1);
 	}
+	if($target_Algorithim =='CamScan'){
+		$p1x = $_POST['p1x'];
+		$p1y = $_POST['p1y'];
+		$p2x = $_POST['p2x'];
+		$p2y = $_POST['p2y'];
+		$p3x = $_POST['p3x'];
+		$p3y = $_POST['p3y'];
+		$p4x = $_POST['p4x'];
+		$p4y = $_POST['p4y'];
+	}
 	
 	
 	
@@ -90,13 +102,20 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 		
 	}
 	else{
-		$message = exec("/home/tigerofmurder/anaconda3/bin/python3.7 '$exe' '$dir_file' '$target_valueC' '$target_valueB' 2>&1");
+		if($target_Algorithim == 'CamScan'){
+			$message = exec("/home/tigerofmurder/anaconda3/bin/python3.7 '$exe' '$dir_file' '$p1x' '$p1y' '$p2x' '$p2y' '$p3x' '$p3y' '$p4x' '$p4y' 2>&1");
+			
+		}
+		else{
+			$message = exec("/home/tigerofmurder/anaconda3/bin/python3.7 '$exe' '$dir_file' '$target_valueC' '$target_valueB' 2>&1");
+		}
+			
 	}
 	
 	#print_r($message);
 	//echo '<img src="'.$message.'">';
 	//$array['success'] = $message;
-	echo json_encode(array('success' => $message, 'histogram' => $histogram,"cont"=>$cont+1));
+	echo json_encode(array('success' => $message, 'histogram' => $histogram,"cont"=>$p1x));
 	//echo json_encode($array)
 }
 
