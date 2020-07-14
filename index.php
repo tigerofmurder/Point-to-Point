@@ -3,7 +3,7 @@
 <title>Algortimos punto a punto</title>
 <link rel="stylesheet" href="style.css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="js/ajax-upload.js"></script>
+<script src="js/ajax-uploa.js"></script>
 
 
 </head>

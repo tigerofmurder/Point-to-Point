@@ -113,7 +113,7 @@ $('#Point_to_Point').change(function() {
     }
     else if(funtionID == "CamScan"){
         positiondots();
-        $("#c_cons").html('Point1x: <input type="number" id="p1x" name="p1x" min="0" max="600" step="0.001" disabled><br>Point1y: <input type="number" id="p1y" min="0" max="600" step="0.001" disabled><br><br>Point2x: <input type="number" id="p2x" min="0" max="600" step="0.001" disabled><br>Point2y: <input type="number" id="p2y" min="0" max="600" step="0.001" disabled>');
+        $("#c_cons").html('<p> Empleo actual:<br> <input type="radio" name="empleoactual" value="tiempocompleto"> Tiempo completo<br> <input type="radio" name="empleoactual" value="mediodia"> Medio día<br> <input type="radio" name="empleoactual" value="sinempleo"> Sin empleo </p> Point1x: <input type="number" id="p1x" name="p1x" min="0" max="600" step="0.001" disabled><br>Point1y: <input type="number" id="p1y" min="0" max="600" step="0.001" disabled><br><br>Point2x: <input type="number" id="p2x" min="0" max="600" step="0.001" disabled><br>Point2y: <input type="number" id="p2y" min="0" max="600" step="0.001" disabled>');
         $("#b_cons").html('Point3x: <input type="number" id="p3x" min="0" max="600" step="0.001" disabled><br>Point3y: <input type="number" id="p3y" min="0" max="600" step="0.001" disabled><br><br>Point4x: <input type="number" id="p4x" min="0" max="600" step="0.001" disabled><br>Point4y: <input type="number" id="p4y" min="0" max="600" step="0.001" disabled>');
         if(context){
             console.log("INICIADO",status);

@@ -2,7 +2,6 @@
 
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
-
 if($_SERVER['REQUEST_METHOD'] == "POST"){
 	$cascade_value = $_POST['cascade'];
 	$cont = $_POST['fcont'];
@@ -66,6 +65,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 		$p3y = $_POST['p3y'];
 		$p4x = $_POST['p4x'];
 		$p4y = $_POST['p4y'];
+		$salidaimg = $_POST['salidaimg'];
 	}
 	
 	
@@ -103,7 +103,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 	}
 	else{
 		if($target_Algorithim == 'CamScan'){
-			$message = exec("/home/tigerofmurder/anaconda3/bin/python3.7 '$exe' '$dir_file' '$p1x' '$p1y' '$p2x' '$p2y' '$p3x' '$p3y' '$p4x' '$p4y' 2>&1");
+			$message = exec("/home/tigerofmurder/anaconda3/bin/python3.7 '$exe' '$dir_file' '$p1x' '$p1y' '$p2x' '$p2y' '$p3x' '$p3y' '$p4x' '$p4y' '$salidaimg' 2>&1");
 			
 		}
 		else{
@@ -115,7 +115,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 	#print_r($message);
 	//echo '<img src="'.$message.'">';
 	//$array['success'] = $message;
-	echo json_encode(array('success' => $message, 'histogram' => $histogram,"cont"=>$p1x));
+	echo json_encode(array('success' => $message, 'histogram' => $histogram,"cont"=>$salidaimg));//$cont+1));
 	//echo json_encode($array)
 }
 
