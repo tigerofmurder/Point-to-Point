@@ -335,6 +335,7 @@ function drawImg(src,x,y){
         var scale = Math.min(canvas.width / img.width, canvas.height / img.height);
         var x = (canvas.width / 2) - (img.width / 2) * scale;
         var y = (canvas.height / 2) - (img.height / 2) * scale;
+        //context.clearRect(0, 0, canvas.width, canvas.height);
         context.drawImage(img, x, y, img.width * scale, img.height * scale);
     }
 }

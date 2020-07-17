@@ -26,12 +26,14 @@ def main(filename,filename1):
     row, cols ,channels = img1.shape
     img = img1.copy()
     c=filename1
+    img = img1 * filename1
+    """
     for i in range(0,row):
         for j in range(0,cols):
             img[i][j][0] = add_constant(img1[i][j][0],c)
             img[i][j][1] = add_constant(img1[i][j][1],c)
             img[i][j][2] = add_constant(img1[i][j][2],c)
-
+    """
     strr = "uploads/solution_"+str(random.random())+".jpg"
     cv2.imwrite(strr,img)
     return strr

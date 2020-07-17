@@ -11,11 +11,14 @@ var poligonosRy = [
     {'X':10, 'Y':200,'R':8, 'L':4, 'paso':1,'color':'#FF0E00', 'bool':false},
     {'X':200, 'Y':200,'R':8, 'L':4, 'paso':1,'color':'#FF0E00', 'bool':false}
 ];
+var type_salide_img = null;
+
 
 var img_salide = "";
 
 
 $(".frmUpload").on('submit',(function(e) {
+    check_type();
 	e.preventDefault();
 	$(".upload-msg").text('Loading...');
     var data = new FormData(this);
@@ -27,6 +30,7 @@ $(".frmUpload").on('submit',(function(e) {
     data.append("p3y",poligonosRy[2].Y);
     data.append("p4x",poligonosRy[3].X);
     data.append("p4y",poligonosRy[3].Y);
+    data.append("salidaimg",type_salide_img);
 	$.ajax({
 		url: "upload.php",
 		type: "POST",
@@ -43,10 +47,10 @@ $(".frmUpload").on('submit',(function(e) {
 			console.log(values.cont);
 			img_salide = values.success;
 			if (values.histogram == "false"){
-                $(".upload-msg").html('<img src="' + values.success + '" />');
+                $(".upload-msg").html('<img src="' + values.success + '" width="600" height="800"/>');
             }
             else{
-                $(".upload-msg").html('<img src="' + values.histogram + '" /><br><img src="' + values.success + '" />');
+                $(".upload-msg").html('<img src="' + values.histogram + '" /><br><img src="' + values.success + '" width="600" height="800"/>');
             }
             
             //var value_cas = $('#cascade :checked').val();
@@ -113,7 +117,7 @@ $('#Point_to_Point').change(function() {
     }
     else if(funtionID == "CamScan"){
         positiondots();
-        $("#c_cons").html('<p> Empleo actual:<br> <input type="radio" name="empleoactual" value="tiempocompleto"> Tiempo completo<br> <input type="radio" name="empleoactual" value="mediodia"> Medio día<br> <input type="radio" name="empleoactual" value="sinempleo"> Sin empleo </p> Point1x: <input type="number" id="p1x" name="p1x" min="0" max="600" step="0.001" disabled><br>Point1y: <input type="number" id="p1y" min="0" max="600" step="0.001" disabled><br><br>Point2x: <input type="number" id="p2x" min="0" max="600" step="0.001" disabled><br>Point2y: <input type="number" id="p2y" min="0" max="600" step="0.001" disabled>');
+        $("#c_cons").html('<p> Color de imagen de Salida:<br> <input type="radio" name="salidaimg" value="color" checked> Color<br> <input type="radio" name="salidaimg" value="blanco"> Blanco y Negro<br> <input type="radio" name="salidaimg" value="grises"> Escala de grises </p> Point1x: <input type="number" id="p1x" name="p1x" min="0" max="600" step="0.001" disabled><br>Point1y: <input type="number" id="p1y" min="0" max="600" step="0.001" disabled><br><br>Point2x: <input type="number" id="p2x" min="0" max="600" step="0.001" disabled><br>Point2y: <input type="number" id="p2y" min="0" max="600" step="0.001" disabled>');
         $("#b_cons").html('Point3x: <input type="number" id="p3x" min="0" max="600" step="0.001" disabled><br>Point3y: <input type="number" id="p3y" min="0" max="600" step="0.001" disabled><br><br>Point4x: <input type="number" id="p4x" min="0" max="600" step="0.001" disabled><br>Point4y: <input type="number" id="p4y" min="0" max="600" step="0.001" disabled>');
         if(context){
             console.log("INICIADO",status);
@@ -286,7 +290,7 @@ $('#Point_to_Point').change(function() {
 		{
 			var reader = new FileReader();
 			reader.onload = function(e){
-				$(".img-preview1").html('<img src="' + e.target.result + '" />');				
+				$(".img-preview1").html('<img src="' + e.target.result + '"/>');				
 			};
 			reader.readAsDataURL(this.files[0]);
 		}
@@ -310,6 +314,7 @@ $("#userImage").change(function() {
 		reader.onload = function(e){
 			//$(".img-preview").html('<img src="' + e.target.result + '" />');
 			direction = e.target.result;
+			context.clearRect(0, 0, canvas.width, canvas.height);
 			drawImg(e.target.result,0,0);
 			positiondots()
 		};
@@ -331,6 +336,7 @@ function drawImg(src,x,y){
         var scale = Math.min(canvas.width / img.width, canvas.height / img.height);
         var x = (canvas.width / 2) - (img.width / 2) * scale;
         var y = (canvas.height / 2) - (img.height / 2) * scale;
+        //context.clearRect(0, 0, canvas.width, canvas.height);
         context.drawImage(img, x, y, img.width * scale, img.height * scale);
     }
 }
@@ -363,6 +369,14 @@ function positiondots(){
             status = true;
         }
     });
+}
+function check_type(){
+    var radioButtons = document.getElementsByName("salidaimg");
+    for(var i = 0; i < radioButtons.length; i++){
+        if(radioButtons[i].checked == true){
+            type_salide_img = radioButtons[i].value;
+        }
+    }
 }
 
 });

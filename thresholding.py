@@ -6,6 +6,8 @@ from matplotlib import pyplot as plt
 import sys
 
 def main(value_thr,value_default,img):
+    ret,img = cv2.threshold(img,value_thr,value_default,cv2.THRESH_BINARY)
+    '''
     height, width = img.shape
     for y in range(0,width):
         for x in range(0,height):
@@ -13,6 +15,7 @@ def main(value_thr,value_default,img):
                 img[x,y] = 250
             else:
                 img[x,y] = 0
+    '''
     strr = "uploads/"+str(value_thr)+"_"+str(value_default)+".jpg"
     cv2.imwrite(strr,img);
     return strr;
